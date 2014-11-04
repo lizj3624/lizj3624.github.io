@@ -3,10 +3,10 @@
 # ----------------------- #
 
 url: http://lizj3624.github.io
-title: lizj3624 Blog
-subtitle: ºº ı“ªπ¯Ï¿
-author: lizj3624
-simple_search: https://www.google.com.hk/search
+title: My Octopress Blog
+subtitle: A blogging framework for hackers.
+author: Your Name
+simple_search: https://www.google.com/search
 description:
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
