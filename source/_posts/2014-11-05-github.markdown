@@ -42,7 +42,7 @@ easy_install pygments
 
     E:
     git clone git://github.com/imathis/octopress.git  octopress
-然后更新 Octopress 的gem更新源：进到 E:octopress 目录，用文本编辑器（例如记事本）打开文件Gemfile，将里面source “http://rubygems.org/”改为source “http://ruby.taobao.org/”。
+然后更新 Octopress 的gem更新源：进到 E:octopress 目录，用文本编辑器（例如记事本）打开文件Gemfile，将里面source "http://rubygems.org/"改为source "http://ruby.taobao.org/"。
 
 最后安装Octopress的依赖项，在Windows的CMD窗口输入以下命令：
 
