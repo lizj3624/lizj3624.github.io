@@ -1,0 +1,78 @@
+##守护进程
+>>>>守护进程也称作精灵进程(daemon)是生存周期较长的一种进程。它们常常在系统自举时启动，仅在系统关闭时才终止。因此它们没有控制终端，所以说它们是在后台运行的。UNIX系统有很多守护进程，它们执行日常事务活动。
+>>>>系统进程依赖于操作系统的实现。父进程ID为0的各进程通常是内核进程，它们作为系统自举过程的一部分而启动。（init是此种进程的例外，它是内核在自举时启动的用户层的命令）内核进程是特殊的，通常在系统的整个生命周期中。它们以超级用户特权运行，无控制终端，无命令行。
+>>>>在编写守护进程程序时需要遵循一些基本规则，以便防止产生并不需要的交互作用，下面说明这些规则，以后可以按照这些规则编写daemon程序。
+1. 首先要做的是调用umask将文件模式创建屏蔽字设置为0。有有继承得来的文件模式创建屏蔽字可能会拒绝设置某些权限。例如，若守护进程要创建一个组可读、写的文件，而继承的文件模式创建屏蔽字可能屏蔽了这两种权限，于是所要求的组可读、写就不能起作用。
+2. 调用fork，然后使父进程退成。这样做实现下面几点：第一，如果该守护进程是一条简单shell命令启动的，那么父进程终止使得shell认为这条命令已经执行完毕；第二，子进程继承了父进程的进程组ID，但是具有一个新的进程ID，这就保证了子进程不是一个进程组的组长进程。对调用setsid做准备。
+3. 调用setsid以创建一个新会话。使调用进程成为新会话的首进程，成为一个新进程的组长进程，没有控制终端。
+4.  将当前工作目录改为根目录。从父进程继承过来的当前工作目录可能在一个装配文件系统中。因为守护进程通常在系统再引导之前一直存在的，所以如果守护进程的当前工作目录在一个装配文件系统中，那么该文件系统就不能被拆卸。
+5. 关闭不必要的文件描述符
+6. 某些守护进程打开/dev/null使其具有文件描述0、1和2，这样一个试图读标准输入、写标准输出或标准出错的库例程都不会产生任何效果。
+如下是nginx启动时调用ngx_daemon函数，使其调用者成为守护进程的函数，通过这个函数我们看一下daemon程序的编写规范(如上6步有可能没有完全都用到或者调用顺序不同)
+    ngx_int_t
+    ngx_daemon(ngx_log_t *log)
+    {
+        int  fd;
+
+        switch (fork()) {     *fork，主进程退出*
+        case -1:
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "fork() failed");
+            return NGX_ERROR;
+
+        case 0:
+            break;
+
+        default:
+            exit(0);
+        }
+
+        ngx_pid = ngx_getpid();
+
+        if (setsid() == -1) {   *setsid使其成为新会话首进程*
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "setsid() failed");
+            return NGX_ERROR;
+        }
+
+        umask(0);               *调用umask*
+
+        fd = open("/dev/null", O_RDWR);    *打开/dev/null使其具有文件描述符0、1和2*
+        if (fd == -1) {
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno,
+                          "open(\"/dev/null\") failed");
+            return NGX_ERROR;
+        }
+
+        if (dup2(fd, STDIN_FILENO) == -1) {
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "dup2(STDIN) failed");
+            return NGX_ERROR;
+        }
+
+        if (dup2(fd, STDOUT_FILENO) == -1) {
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "dup2(STDOUT)failed");
+            return NGX_ERROR;
+        }
+
+    #if 0
+        if (dup2(fd, STDERR_FILENO) == -1) {
+            ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "dup2(STDERR)failed");
+            return NGX_ERROR;
+        }
+    #endif
+
+        if (fd > STDERR_FILENO) {
+            if (close(fd) == -1) {
+                ngx_log_error(NGX_LOG_EMERG, log, ngx_errno, "close() failed");
+                return NGX_ERROR;
+            }
+        }
+
+        return NGX_OK;
+    }
+
+>>>>为了正常运行，某些守护进程实现为单实例的，也就是说在任何一时刻只运行该守护进程的一个副本，文件锁和记录锁机制可以实现单实例运行，文件和记录锁提供了一种方便的互斥机制。如果守护进程在整个文件上得到一把写锁，那么在该进程终止时，这把锁被自动删除。实现这个机制的函数lockfile(fd)函数，fd是程序运行时写文件的文件描述符，一般"/var/run/name.pid".
+>>>>守护进程的惯例
+1. 若守护进程使用锁文件，那么该文件通常存放在/var/run下，名称一般是name.pid
+2. 若守护进程支持配置选项，那么配置选项通常存放在/etc，一般名称"name.conf"
+3. 守护进程可用命令行启动，但是通常它们有系统初始化脚本启动。
+4.若守护进程有一配置文件，那么刚该守护进程启动时，它读取该文件，但在此后一般就
+不在查看。如果修改时，可以通过捕捉SIGHUP信号，重读配置文件。
