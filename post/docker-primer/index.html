@@ -4,13 +4,13 @@
 <meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
 <meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
 <meta http-equiv=content-security-policy content="upgrade-insecure-requests">
-<title> 中文浏览国外社交媒体热点(Buzzing.cc) - 幸福和富有的过一生 </title>
+<title> Docker入门与实践 - 幸福和富有的过一生 </title>
 <meta name=keywords content="云计算,软件开发,架构师,思考,读书,笔记,技术,投资,加密货币,区块链">
 <meta name=author content="lizj3624">
-<meta property="og:title" content="中文浏览国外社交媒体热点(Buzzing.cc)">
+<meta property="og:title" content="Docker入门与实践">
 <meta property="og:site_name" content="幸福和富有的过一生">
 <meta property="og:image" content="/img/author.jpg">
-<meta name=title content="中文浏览国外社交媒体热点(Buzzing.cc) - 幸福和富有的过一生">
+<meta name=title content="Docker入门与实践 - 幸福和富有的过一生">
 <meta name=description content="欢迎来到我的空间站，个人主要专注于软件开发，科技技术，云计算，加密货币。">
 <link rel="shortcut icon" href=/img/favicon.ico>
 <link rel=apple-touch-icon href=/img/apple-touch-icon.png>
@@ -101,31 +101,42 @@
 <article class="post post-type-normal" itemscope itemtype=http://schema.org/Article>
 <header class=post-header>
 <h1 class=post-title itemprop="name headline">
-<a class=post-title-link href=https://lizj3624.github.io/post/buzzing/ itemprop=url>
-中文浏览国外社交媒体热点(Buzzing.cc)
+<a class=post-title-link href=https://lizj3624.github.io/post/docker-primer/ itemprop=url>
+Docker入门与实践
 </a>
 </h1>
 <div class=post-meta>
 <span class=post-time>
 <i class="fa fa-calendar-o fa-fw"></i>
 <span class=post-meta-item-text>时间：</span>
-<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2022-02-10">
-2022-02-10
+<time itemprop=dateCreated datetime=2016-03-22T13:04:35+08:00 content="2022-02-22">
+2022-02-22
 </time>
+</span>
+<span class=post-category>
+&nbsp; | &nbsp;
+<i class="fa fa-folder-o fa-fw"></i>
+<span class=post-meta-item-text>分类：</span>
+<span itemprop=about itemscope itemtype=https://schema.org/Thing>
+<a href=/categories/docker itemprop=url rel=index style=text-decoration:underline>
+<span itemprop=name>docker</span>
+</a>
+&nbsp;
+</span>
 </span>
 <span>
 |
 <i class="fa fa-file-word-o fa-fw"></i>
 <span class=post-meta-item-text>字数：</span>
-<span class=leancloud-world-count>130 字</span>
+<span class=leancloud-world-count>1843 字</span>
 </span>
 <span>
 |
 <i class="fa fa-eye fa-fw"></i>
 <span class=post-meta-item-text>阅读：</span>
-<span class=leancloud-view-count>1分钟</span>
+<span class=leancloud-view-count>4分钟</span>
 </span>
-<span id=/post/buzzing/ class=leancloud_visitors data-flag-title=中文浏览国外社交媒体热点(Buzzing.cc)>
+<span id=/post/docker-primer/ class=leancloud_visitors data-flag-title=Docker入门与实践>
 |
 <i class="fa fa-binoculars fa-fw"></i>
 <span class=post-meta-item-text>阅读次数：</span>
@@ -134,22 +145,177 @@
 </div>
 </header>
 <div class=post-body itemprop=articleBody>
-<blockquote>
-<p>英文不太好，一直想找翻译国外媒体热点的网站，今天终于找到了buzzing.cc</p>
-</blockquote>
-<h2 id=中文浏览国外社交媒体热点httpswwwbuzzingcc><a href=https://www.buzzing.cc/>中文浏览国外社交媒体热点</a></h2>
-<p>Buzzing 适合：</p>
+<h1 id=基础入门>基础入门</h1>
+<h2 id=docker命令大全速查>docker命令大全速查</h2>
+<p><a href=https://m.w3cschool.cn/docker/docker-command-manual.html>docker命令大全速查</a></p>
+<h2 id=docker核心概念>docker核心概念</h2>
+<ol>
+<li>容器: Container</li>
+<li>镜像: Image</li>
+<li>仓库: Repository</li>
+</ol>
+<h2 id=使用docker镜像>使用docker镜像</h2>
+<h3 id=获取镜像>获取镜像</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#080;font-style:italic># docker [image] pull NAME:[TAG]</span>
+<span style=color:#080;font-style:italic># NAME是镜像的名字，TAG是标签</span>
+
+docker pull ubuntu:18.04
+
+docker pull registry.hub.docker.com/ubuntu:18.04
+</code></pre></div><h3 id=查看镜像信息>查看镜像信息</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker image  
+
+docker tag ubuntu:latest myybuntu:latest
+
+docker inspect ubuntu:18.04
+
+docker <span style=color:#a2f>history</span> ubuntu:18.04
+</code></pre></div><h3 id=查找>查找</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker search --filter<span style=color:#666>=</span><span style=color:#b8860b>stars</span><span style=color:#666>=</span><span style=color:#666>4</span> nginx
+</code></pre></div><h3 id=删除>删除</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker rmi myubuntu:latest
+</code></pre></div><h3 id=创建容器>创建容器</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker commit -m <span style=color:#b44>&#34;add new file&#34;</span> -a <span style=color:#b44>&#34;Docker Newbee&#34;</span> a925cb40b3f0 test:0.1
+
+cat ubuntu-18.04-x86_64-minimal.tar.gz |docker import - ubuntu:18.04
+
+<span style=color:#080;font-style:italic># docker file</span>
+</code></pre></div><h3 id=存出和载入镜像>存出和载入镜像</h3>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker load -i ubuntu_18.04.tar
+
+docker load &lt; ubuntu_18.04.tar
+
+
+docker tag test:latest user/test:latest
+docker push user/test:latest
+</code></pre></div><h2 id=操作容器>操作容器</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#080;font-style:italic>## 创建容器</span>
+docker create -it ubuntu:latest
+
+<span style=color:#080;font-style:italic>## 启动已经创建的容器</span>
+docker start af
+
+<span style=color:#080;font-style:italic>## 创建并启动容器</span>
+docker run ubuntu /bin/echo <span style=color:#b44>&#39;Hello workd&#39;</span>
+
+-d 守护
+
+<span style=color:#080;font-style:italic>## 停止</span>
+docker pause <span style=color:#666>[</span>contains<span style=color:#666>]</span>
+
+docker stop ce5
+
+docker restart ce5
+
+<span style=color:#080;font-style:italic>## 进入容器</span>
+docker attach 
+
+docker <span style=color:#a2f>exec</span> -it 243c32535da7 /bin/bash
+
+<span style=color:#080;font-style:italic>## 删除</span>
+docker rm ce554267d7a4
+</code></pre></div><h2 id=docker数据管理>docker数据管理</h2>
+<p>数据卷将主机操作系统的目录直接映射到容器，类型Linux的mount行为</p>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker volume create -d <span style=color:#a2f>local</span> <span style=color:#a2f>test</span>
+
+<span style=color:#080;font-style:italic># -mount 选项支持三种类型的数据卷，包括 :</span>
+<span style=color:#080;font-style:italic># volume : 普通数据卷，映射到主机/ var/lib/docker/volumes 路径下;</span>
+<span style=color:#080;font-style:italic># bind:绑定数据卷，映射到主机指定路径下;</span>
+<span style=color:#080;font-style:italic># tmpfs :临时数据卷，只存在于内存中 。</span>
+docker run d P -name web mount <span style=color:#b8860b>type</span><span style=color:#666>=</span>bind,source<span style=color:#666>=</span>/webapp,destination<span style=color:#666>=</span>/opt/ webapp training/webapp python app.py
+
+docker run -d -P --name web -v /webapp:/opt/webapp training/webapp python app.py
+
+<span style=color:#080;font-style:italic># 只读 ro</span>
+docker run -d -P --name web -v /webapp: /opt/webapp:ro training/webapp python app.py
+
+<span style=color:#080;font-style:italic># 数据卷容器</span>
+docker run -it -v /dbdata --name dbdata ubuntu
+
+docker run -it --volumes-from dbdata -name db1 ubuntu
+
+<span style=color:#080;font-style:italic># 数据卷容器备份和恢复</span>
+docker run -volumes-from dbdata -v $ <span style=color:#666>(</span><span style=color:#a2f>pwd</span><span style=color:#666>)</span> :/backup - -name worker ubuntu tar
+cvf /backup/backup.tar /dbdata
+
+docker run -v /dbdata --name dbdata2 ubuntu /bin/bash
+</code></pre></div><h2 id=端口映射与容器互联>端口映射与容器互联</h2>
+<p>当容器中运行一些网络应用， 要让外部访问这些应用时， 可以通过<code>-P</code>或<code>-p</code>参数来指 定端口映射。当使用平(大写的)标记时， Docker会随机映射一个<code>49000~49900</code>的端口 到内部容器开放的网络端口:</p>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=color:#080;font-style:italic># 本地主机的49155被映射到了容器的5000端口</span>
+docker run -d -P training/webapp python app.py
+
+<span style=color:#080;font-style:italic># -p (小写的)则可以指定要映射的端口，并且，在一个指定端口上只可以绑定一个容器。 支持的格式有 IP:HostPort:ContainerPort | IP::ContainerPort | HostPort:ContainerPort。</span>
+
+docker run -d -p 5000:5000 training/webapp python app.py
+
+docker run -d -p 5000:5000 -p 3000:80 training/webapp py thon app.py
+
+docker run -d -p 127.0.0.1::5000 training/webapp python app.py
+
+docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+
+<span style=color:#080;font-style:italic># 查看端口映射</span>
+docker port nostalgic_morse <span style=color:#666>5000</span>
+
+docker run -d -P --name web --link db:db 扛aining/webapp py七hon app.py
+</code></pre></div><h2 id=dockerfile创建镜像>Dockerfile创建镜像</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>docker file
+</code></pre></div><h1 id=进阶>进阶</h1>
+<h2 id=核心技术>核心技术</h2>
+<h3 id=基础架构>基础架构</h3>
+<ol>
+<li>服务端
 <ul>
-<li>想要了解世界（主要是英文世界）正在发生什么的人</li>
-<li>有一定的英语基础，但是无法流畅阅读</li>
-<li>想要提升英文阅读量，但是找不到感兴趣的读物</li>
-<li>注重阅读体验，喜欢简约的排版</li>
+<li>dockerd：为客户端提供RESTful API，响应来自客户端的请求，采用模块化的架构，通过专门的Engine模块来分发管理各个来自客户端的任务。</li>
+<li>docker-proxy：是dockerd的子进程，当需要进行容器端口映射时，docker-proxy完成网络映射配置</li>
+<li>containerd：是dockerd的子进程，提供gRPC接口响应来自dockerd的请求，对下管理runC镜像和容器环境。</li>
+<li>containerd-shim：是containerd的子进程，为runC容器提供支持，同时作为容器内进程的根进程</li>
 </ul>
+</li>
+</ol>
+<blockquote>
+<p>runC是从docker公司开源的libcontainer项目演化而来的，目前加入OCI(Open Containers Initiative)，支持容器相关的技术栈，同时正在实现跨OS</p>
+</blockquote>
+<p><img src=https://github.com/lizj3624/mynote/blob/master/Cloud-Native/pictures/docker-arch.jpg alt=arch></p>
+<ol start=2>
+<li>
+<p>客户端
+docker命令就是客户端</p>
+</li>
+<li>
+<p>镜像仓库
+docker hub</p>
+</li>
+</ol>
+<h3 id=命名空间>命名空间</h3>
+<p>命名空间(namespace)是Linux内核的一个强大特性，为容器虚拟化的实现提供极大便利，每个容器都可以拥有自己单独的命名空间。
+实现了内存、CPU、网络IO、硬盘IO、存储空间，还有文件系统、网络、PID、UID、IPC等相互隔离</p>
+<ol>
+<li>进程命名空间</li>
+<li>IPC命名空间</li>
+<li>网络命名空间</li>
+<li>挂载命名空间</li>
+<li>UTS命名空间</li>
+<li>用户命名空间</li>
+</ol>
+<h3 id=控制组>控制组</h3>
+<p>控制组(CGroups)是Linux内核的一个特性</p>
+<ol>
+<li>资源限制</li>
+<li>优先级</li>
+<li>资源审计</li>
+<li>隔离</li>
+<li>控制</li>
+</ol>
+<h3 id=联合文件系统>联合文件系统</h3>
+<p>联合文件系统(UnionFS)是一种轻量级的高性能分层文件系统，它支持将文件系统中的修改信息作为一次提交，并层层叠加，同时可以将不同目录挂载到同一个虚拟文件系统下，应用看到的挂载的最终结果。是docker镜像的技术基础</p>
+<h3 id=linux网络虚拟化>Linux网络虚拟化</h3>
+<p>docker中网络接口默认是虚拟接口.docker服务启动时首先在主机上自动创建一个docker0虚拟网桥，实际上是一个Linux网桥。网桥可以理解为一个软件交换机，负责挂载其上的接口之间进行包转发。同时，Docker随机分配一个本地未占用的私有网段中的一个地址给docker0接口，比如<code>172.17.0.0、16</code>，掩码为<code>255.255.0.0.</code>，此后启动的容器的网口也会自动分配一个该网段的地址。当创建一个Docker容器的时候，同时会创建了一对<code>veth pair</code>互联接口。当向任一个接口发送包时，另外一个接口自动收到相同的包。互联接口的一端位于容器内，即<code>eth0</code>；另一端在本地并被挂载到<code>docker0</code>网桥，名称以<code>veth</code>开头。通过这种方式，主机可以与容器通信，容器之间也可以相互通信。如此一来，Docker就创建了在主机和所有容器之间一个虚拟共享网络。</p>
+<p><img src=https://github.com/lizj3624/mynote/blob/master/Cloud-Native/pictures/docker-net.jpg alt=arch></p>
 </div>
 <footer class=post-footer>
 <div class=post-tags>
-<a href=/tags/buzz rel=tag title=buzz>#buzz#</a>
-<a href=/tags/%e5%9b%bd%e5%a4%96%e8%ae%ba%e5%9d%9b rel=tag title=国外论坛>#国外论坛#</a>
+<a href=/tags/docker rel=tag title=docker>#docker#</a>
 </div>
 <div class=addthis_inline_share_toolbox></div>
 <div class=post-nav>
@@ -160,10 +326,10 @@
 </div>
 <div class=article-copyright-info>
 <p>
-<span>声明：</span>中文浏览国外社交媒体热点(Buzzing.cc)
+<span>声明：</span>Docker入门与实践
 </p>
 <p>
-<span>链接：</span>https://lizj3624.github.io/post/buzzing/
+<span>链接：</span>https://lizj3624.github.io/post/docker-primer/
 </p>
 <p>
 <span>作者：</span>lizj3624
@@ -193,13 +359,10 @@
 </div>
 <div class=post-nav>
 <div class="post-nav-next post-nav-item">
-<a href=https://lizj3624.github.io/post/cloudflare-2021-q4/ rel=next title="Cloudflare 公布 2021 年第四季度和财年财务业绩">
-<i class="fa fa-chevron-left"></i> Cloudflare 公布 2021 年第四季度和财年财务业绩
-</a>
 </div>
 <div class="post-nav-prev post-nav-item">
-<a href=https://lizj3624.github.io/post/the-alchemy-of-finance/ rel=prev title="金融炼金术(The Alchemy of Finance)">
-金融炼金术(The Alchemy of Finance)
+<a href=https://lizj3624.github.io/post/hugo-comment/ rel=prev title=Hugo新增评论插件>
+Hugo新增评论插件
 <i class="fa fa-chevron-right"></i>
 </a>
 </div>
@@ -219,7 +382,15 @@
 </div>
 <aside id=sidebar class=sidebar>
 <div class=sidebar-inner>
-<section class="site-overview sidebar-panel sidebar-panel-active">
+<ul class="sidebar-nav motion-element">
+<li class="sidebar-nav-toc sidebar-nav-active" data-target=post-toc-wrap>
+文章目录
+</li>
+<li class=sidebar-nav-overview data-target=site-overview>
+站点概览
+</li>
+</ul>
+<section class="site-overview sidebar-panel">
 <div class="site-author motion-element" itemprop=author itemscope itemtype=http://schema.org/Person>
 <img class=site-author-image itemprop=image src=/img/avatar.png alt=lizj3624>
 <p class=site-author-name itemprop=name>lizj3624</p>
@@ -298,6 +469,41 @@ GitHub
 <a href=/tags/html>HTML</a>
 </li>
 </ul>
+</div>
+</section>
+<section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+<div class=post-toc>
+<div class=post-toc-content><nav id=TableOfContents>
+<ul>
+<li><a href=#docker命令大全速查>docker命令大全速查</a></li>
+<li><a href=#docker核心概念>docker核心概念</a></li>
+<li><a href=#使用docker镜像>使用docker镜像</a>
+<ul>
+<li><a href=#获取镜像>获取镜像</a></li>
+<li><a href=#查看镜像信息>查看镜像信息</a></li>
+<li><a href=#查找>查找</a></li>
+<li><a href=#删除>删除</a></li>
+<li><a href=#创建容器>创建容器</a></li>
+<li><a href=#存出和载入镜像>存出和载入镜像</a></li>
+</ul>
+</li>
+<li><a href=#操作容器>操作容器</a></li>
+<li><a href=#docker数据管理>docker数据管理</a></li>
+<li><a href=#端口映射与容器互联>端口映射与容器互联</a></li>
+<li><a href=#dockerfile创建镜像>Dockerfile创建镜像</a></li>
+</ul>
+<ul>
+<li><a href=#核心技术>核心技术</a>
+<ul>
+<li><a href=#基础架构>基础架构</a></li>
+<li><a href=#命名空间>命名空间</a></li>
+<li><a href=#控制组>控制组</a></li>
+<li><a href=#联合文件系统>联合文件系统</a></li>
+<li><a href=#linux网络虚拟化>Linux网络虚拟化</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
 </div>
 </section>
 </div>
